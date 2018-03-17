@@ -1,0 +1,9 @@
+pokoju,pokoj,peace
+mol,mola,moth
+kot,kota,cat
+woz,woza,cart
+brzoz,brozoza,birch
+šop,šopa,shed
+bob,boba,bean
+brod,broda,beard
+otok,otoka,circumference
