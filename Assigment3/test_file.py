@@ -56,38 +56,53 @@ def compare(*args):
         return diff
 
 def find_phonemes(features, num):
-    #pass
+    pass
 
-    if type(features) is str:
-        features = features.split(",")
-        features = [feature.strip(" ") for feature in features]
-        print(features)
 
-    base_features = HAYES["a"]
-    base_features = [phonetic.strip('-') for phonetic in base_features]
-    base_features = [phonetic.strip('0') for phonetic in base_features]
-    base_features = [phonetic.strip('+') for phonetic in base_features]
-    zero_features = ["0"+phonetic for phonetic in base_features]
-    negative_features = ["-"+phonetic for phonetic in base_features]
-    positive_features = ["+"+phonetic for phonetic in base_features]
-    total_features = zero_features + positive_features + negative_features
-    print(total_features)
+#TESTS
 
-    for feature in features:
-        if feature not in total_features:
-            raise ValueError(feature+" does not exist as a feature")
+#print(HAYES['p'])
+#print(HAYES['a'])
 
-    counter = 0;
-    match_list = []
-    for line in HAYES:
-        match = set(features) & set(HAYES[line])
-        #raise ValueError(''.join(features)+" does not exist as a feature")
-        if len(match) == len(features):
-            match_list.append(HAYES[line])
-            counter = counter + 1
-    if counter < num:
-        print("there are only "+str(counter)+" "+''.join(features)+" segments")
-    if num == -1:
-        return match_list
-    else:
-        return match_list[0:num]
+for feature in HAYES['z']:
+    print(feature)
+for feature in HAYES['q']:
+    print(feature)
+
+wordlist1 = ["hi","where","you"]
+longestTest1 = find_longest_word(wordlist1,2)
+print(longestTest1)
+
+wordlist2 = ["hi","where",0]
+longestTest2 = find_longest_word(wordlist2)
+print(longestTest2)
+
+compareTest1 = compare("how","p","a")
+print(compareTest1)
+
+compareTest2 = compare("same","oh","oh")
+print(compareTest2)
+
+sameTest1 = compare("same","p","a")
+print(sameTest1)
+twoargTest = compare("s","z")
+print(twoargTest)
+diffTest1 = compare("diff","s","z")
+print(diffTest1)
+diffTest2 = compare("same","p","o")
+print(diffTest2)
+
+segments1 = find_phonemes(['0anterior', '+approximant', '-back'], 5)
+print(segments1)
+segments2 = find_phonemes(['+nasal', '+voice'], 7)
+print(segments2)
+segments3 = find_phonemes(['+nasal', '+voice'], -1)
+print(segments3)
+segments4 = find_phonemes(['+high', '+low'], 5)
+print(segments4)
+segments5 = find_phonemes(['+sticky'], 5)
+print(segments5)
+segments6 = find_phonemes('+high, +low', 5)
+print(segments6)
+#for line in HAYES:
+#    print(HAYES[line])

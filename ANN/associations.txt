@@ -1,0 +1,6 @@
+First 2 Caps, Acronym -> 11, 100
+First 2 Small, Common -> 00, 010
+First Caps Next Small, Proper -> 10, 001
+
+2 starting nodes needed
+3 ending nodes needed
