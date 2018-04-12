@@ -9,7 +9,7 @@ def load_training_data(path):
     inputs = list()
     outputs = list()
     for line in lines:
-        line = line.strip('-')
+        line = line.replace('-','')
         line = line.split(',')
         code = create_input(line[0])
         inputs.append(code)
@@ -19,7 +19,9 @@ def load_training_data(path):
 def create_input(word):
     code = list()
     for letter in word:
-        if letter=="c" or letter=="h" or letter=="i":
+        if len(code)>=6:
+            break
+        elif letter=="c" or letter=="h" or letter=="i":
             code.append(1.0)
         elif letter=="o":
             code.append(1.0)
@@ -35,19 +37,11 @@ def fill_pattern(inputs, longest):
     for codeArray in inputs:
         i = codeArray
         j = 0
-        while len(codeArray) < longest:
+        while len(codeArray) < 6:
             codeArray.append(i[j])
             j = j + 1
     print(inputs)
     return inputs
-
-'''
-def add_zeroes(inputs, longest):
-    for i in inputs:
-        while len(i) < longest:
-            i.append(0.)
-    return inputs
-'''
 
 def find_longest(inputs):
     longest = 0
@@ -60,13 +54,13 @@ def find_longest(inputs):
 #Load input and output values
 path = r'/Users/hudhaifahz/Desktop/LING447/Assignment5/list.txt'
 inputs,outputs = load_training_data(path)
-#print(inputs,outputs)
+print(inputs,outputs)
 #Add in any extra 0 that are needed
-longest = find_longest(inputs)
-inputs = fill_pattern(inputs, longest)
+#longest = find_longest(inputs)
+#inputs = fill_pattern(inputs, longest)
 
 #Create a dataset from pybrain
-dataset = SupervisedDataSet(longest, 4)
+dataset = SupervisedDataSet(6, 4)
 #the first argument is the number of input nodes
 #the second argument is the number of output nodes
 
@@ -79,7 +73,7 @@ for index in range(len(inputs)):
     #the casting happens because the function requires tuples
 
 #Build a network that uses backpropogration
-network = buildNetwork(longest, longest+1, 4)
+network = buildNetwork(6, 7, 4)
 #the first argument is the number of input nodes
 #the second argument is the number of hidden nodes
 #the third argument is the number of output nodes
@@ -90,10 +84,10 @@ for j in range(1000):
     trainer.train()
 
 #Test the network
-test_words = ['nono', 'chiyuchiyu', 'zaza', 'gugu', 'dadadada','barabara','chibi-chibi','karakara','noronoro',]
-#inputs = [word+word for word in test_words if len()]
+test_words = ['nono', 'chiyuchiyu', 'zaza', 'gugu', 'dadadada','barabara','chibi-chibi','karakara','noronoro']
+#inputs = [word+word else wo for word in test_words if len(word)<6]
 inputs = [create_input(word) for word in test_words]
-inputs = fill_pattern(inputs, longest)
+inputs = fill_pattern(inputs, 6)
 for index, input_ in enumerate(inputs):
     results  = network.activate(input_)
     #the activation function activates the inputs nodes, sending a signal

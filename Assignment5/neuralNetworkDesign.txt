@@ -1,0 +1,68 @@
+ASSIGNMENT 5
+Hudhaifah Zahid - 18030149
+
+INPUT LAYER:
+
+The number of input nodes is less important than how they are coded.
+The limit of 6 is in japIdeophonesNN.py while longest is in draftJap.py.
+They both work equally well as most of the words repeat their first half.
+
+In previous work, we set all values that we want to ignore to zero.
+This cannot be done with Japanese ideophones as the Neural Network picks up a
+pattern of smaller words being "fast and quick" even though they had letters
+representing "big and slow" or "low pitched", e.g. "nono" or "zaza"
+To handle this, a function fill_pattern is introduced. The idea is to continue
+the pattern already observed in the remaining input nodes. As such, nono would
+be 01010101010 instead of 01010000000 in the longest version and easier to
+differentiate from "zaza" which would be 10101010101 instead of 10100000000.
+
+OUTPUT LAYER:
+
+The Neural Network was asked to classify the inputs into 4 categories:
+- small quick
+- big slow
+- high pitch
+- low pitch
+
+small quick is assumed to be activated 110 or 111 patterns
+big slow is assumed to be activated by 010 patterns
+high pitch is assumed to be activated by 101 patterns
+low pitch is assumed to be activated by 000 patterns
+
+MAPPING:
+
+chibi-chibi, 1,0,0,0
+chobo-chobo, 1,0,0,0
+chirin-chirin, 1,0,0,0
+iso-iso, 1,0,0,0
+pika-pika, 1,0,0,0
+pecha-kucha, 1,0,0,0
+buyobuyo, 0,1,0,0
+nosonoso, 0,1,0,0
+noronoro, 0,1,0,0
+nobinobi, 0,1,0,0
+goro-goro, 0,1,0,0
+gobo-gobo, 0,1,0,0
+kaa-kaa, 0,0,1,0
+saku-saku, 0,0,1,0
+ton-ton, 0,0,1,0
+soya-soya, 0,0,1,0
+pata-pata, 0,0,1,0
+kusu-kusu, 0,0,1,0
+gaa-gaa, 0,0,0,1
+zaki-zaki, 0,0,0,1
+don-don, 0,0,0,1
+byo-byoo, 0,0,0,1
+goro-goro, 0,0,0,1
+
+Inputs: [[1.0, 1.0, 1.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 0.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0], [1.0, 1.0, 1.0, 0.0, 1.0, 1.0], [1.0, 0.0, 1.0, 1.0, 0.0, 1.0], [0.0, 0.0, 0.0, 1.0, 0.0, 0.0], [0.0, 1.0, 1.0, 1.0, 0.0, 1.0], [0.0, 1.0, 0.0, 1.0, 0.0, 1.0], [0.0, 1.0, 0.0, 1.0, 0.0, 1.0], [0.0, 1.0, 0.0, 1.0, 0.0, 1.0], [0.0, 1.0, 0.0, 1.0, 0.0, 1.0], [1.0, 0.0, 0.0, 1.0, 0.0, 0.0], [1.0, 0.0, 1.0, 0.0, 1.0, 0.0], [1.0, 1.0, 0.0, 1.0, 1.0, 0.0], [1.0, 1.0, 0.0, 0.0, 1.0, 1.0], [1.0, 0.0, 1.0, 0.0, 1.0, 0.0], [1.0, 0.0, 1.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 1.0, 0.0, 0.0, 1.0], [0.0, 1.0, 0.0, 1.0, 0.0, 1.0]]
+Outputs: [[1.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 1.0]]
+
+NOTES:
+
+Differentiation or contrast of pattern is key to the success of Neural networks.
+If "p","t","s", or "k" was present, it was marked with 1, otherwise it remained
+unmarked as 0. Consonants do not appear as vowels do, so marking "i" and "o" with
+1 sufficed to contrast from other vowels and consonants. "ch" is unique as well
+as "c" and "h" would have to be present together. If both are marked with 1, it
+is enough to contrast from other patterns.
