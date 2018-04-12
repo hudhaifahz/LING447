@@ -1,3 +1,5 @@
+import pybrain
+from pybrain.pybrain.structure import
 from pybrain.tools.shortcuts import buildNetwork
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
@@ -39,9 +41,9 @@ def find_longest(inputs):
 
 
 #Load input and output values
-path = r'C:\Users\Scott\Documents\Linguistics\Summer course\word type data.txt'
+path = r'/Users/hudhaifahz/Desktop/LING447/ANN/list.txt'
 inputs,outputs = load_training_data(path)
-
+print(inputs,outputs)
 #Add in any extra 0 that are needed
 longest = find_longest(inputs)
 inputs = add_zeroes(inputs, longest)
