@@ -1,0 +1,7 @@
+banit,shoulder
+go,spouse
+hanunuk,shadow
+kabe,foot/leg
+lohor,neck
+talinga,ear
+tutur,knee
